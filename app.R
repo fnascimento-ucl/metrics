@@ -7,19 +7,23 @@
 # - Percent labels on stacked bars always shown (annotation traces)
 # ============================
 
+required_pkgs <- c(
+  "shiny","readxl","janitor","dplyr","stringr","lubridate",
+  "tidyr","scales","DT","shinyjs","plotly","ggplot2"
+)
+
+install_if_missing <- function(pkgs) {
+  missing <- pkgs[!vapply(pkgs, requireNamespace, logical(1), quietly = TRUE)]
+  if (length(missing)) {
+    message("Installing missing packages: ", paste(missing, collapse = ", "))
+    install.packages(missing, dependencies = TRUE)
+  }
+}
+
+install_if_missing(required_pkgs)
+
 suppressPackageStartupMessages({
-  library(shiny)
-  library(readxl)
-  library(janitor)
-  library(dplyr)
-  library(stringr)
-  library(lubridate)
-  library(tidyr)
-  library(scales)
-  library(DT)
-  library(shinyjs)
-  library(plotly)
-  library(ggplot2)
+  lapply(required_pkgs, library, character.only = TRUE)
 })
 
 
