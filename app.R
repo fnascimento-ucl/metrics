@@ -15,8 +15,13 @@ required_pkgs <- c(
 install_if_missing <- function(pkgs) {
   missing <- pkgs[!vapply(pkgs, requireNamespace, logical(1), quietly = TRUE)]
   if (length(missing)) {
-    message("Installing missing packages: ", paste(missing, collapse = ", "))
-    install.packages(missing, dependencies = TRUE)
+    message("Installing missing packages (runtime only): ", paste(missing, collapse = ", "))
+    options(timeout = 300)  # more forgiving for slow networks
+    install.packages(
+      missing,
+      dependencies = c("Depends", "Imports"),
+      type = "binary"
+    )
   }
 }
 
