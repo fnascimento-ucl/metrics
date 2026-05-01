@@ -1,40 +1,42 @@
-# metrics
-What this is
-The DNMD Funding Metrics Dashboard is a small software tool (Shiny R app) that runs on your computer and opens in your web browser.
+# DNMD Funding Metrics Dashboard (Shiny R app)
 
-Quick checklist (you need these once)
- - R installed (the R engine)
-- RStudio Desktop installed (recommended interface) 
-- The DNMD_funding_metrics app folder downloaded to your computer (see below) 
+A local (offline-friendly) Shiny R dashboard for exploring departmental funding applications, including outcomes, project types, applicants, funders, gender summaries, and 12‑month metrics.
+
+This app runs **on your computer** and opens in your web browser.
 
 
-Step 1 — Download the app (simplest: GitHub ZIP)
-- Open the GitHub page for the app.
-- Click Code → Download ZIP, then unzip it.
+## Features
+- Interactive plots (Plotly) and downloadable outputs
+- Tabbed views (e.g., Overview, Project Type, People, Gender, Funders, 12‑month view)
+- Upload an Excel file (.xlsx) and explore results with filters
+- Export filtered tables as `.csv`
 
-Step 3 — Run the app
-- Open RStudio.
--Open the folder you unzipped (it should contain app.R).
-- In the Console, run:
 
-  Rshiny::runApp("PATH/TO/DNMD_funding_metrics")
-  runApp() is the standard way to launch a Shiny app from a folder or an app.R file.
+## Requirements (one-time)
+You need:
+- **R** installed (the engine): https://cran.rstudio.com/ [1](https://cran.rstudio.org/bin/windows/)[2](https://www.tutorialkart.com/r-tutorial/install-r-on-windows/)  
+- **RStudio Desktop** installed (recommended): https://posit.co/download/rstudio-desktop/ [3](https://github.com/DavidASmith/r-shiny-docker-renv)  
 
-Offline use 
 
-After you’ve installed the required packages once (while online), the app will typically run offline on the same computer because the packages are already installed locally.
-For best reproducibility across machines, we use renv (see below). renv can restore the exact package set from a lockfile and reuses a global package cache where possible. 
-- Optional but recommended: “One‑command setup” using renv (more reliable)
-  If the app folder contains renv.lock, then in RStudio (while online the first time):
-  Rinstall.packages("renv")renv::restore()``Show more lines
-  This restores the project library from the lockfile.
-  Why this helps: renv maintains a global package cache, so restores are faster and more consistent (and can reuse already cached packages).
+## Get the app (no Git needed)
+### Option A — Download ZIP from GitHub (simplest)
+1. On GitHub, open this repository.
+2. Click **Code → Download ZIP**, then unzip it. [4](https://search.r-project.org/CRAN/refmans/renv/html/restore.html)  
 
-Troubleshooting (two common issues)
-1) “package ‘xxx’ not found”
-→ Install missing packages (or run renv::restore() if provided).
-2) App opens at http://127.0.0.1:xxxx
-→ That is normal: it means the app is running locally on your computer (not publicly online).
+You should end up with a folder that contains:
+- `app.R`
+- (optionally) a `www/` folder with images/assets
 
-Support
-If you get stuck: Filipe Nascimento (f.nascimento@ucl.ac.uk)
+### Option B — Download from Releases (recommended for “stable” versions)
+If this repository uses GitHub Releases:
+1. Go to **Releases**
+2. Download **Source code (zip)** or a provided asset ZIP. [4](https://search.r-project.org/CRAN/refmans/renv/html/restore.html)  
+
+
+## Install required R packages (first run)
+Open **RStudio**, then run this in the Console:
+
+install.packages(c(
+  "shiny","readxl","janitor","dplyr","stringr","lubridate",
+  "tidyr","scales","DT","shinyjs","plotly","ggplot2"
+))
